@@ -1,6 +1,6 @@
 
 <template>
-  <q-layout view="hHh lpR fFf" classes="col-grow col-md-6 self-center q-gutter-md">
+  <q-layout view="hHh lpR fFf">
 
     <q-header elevated class="bg-primary text-white" height-hint="98">
       <q-toolbar>
@@ -40,8 +40,9 @@
       <!-- drawer content -->
     </q-drawer>
 
-    <q-page-container class="fit column wrap justify-start">
+    <q-page-container>
       <router-view />
+      <error-modal :message="errorMessage" ref="errorModal" />
     </q-page-container>
 
     <q-footer elevated class="bg-grey-8 text-white">
@@ -61,17 +62,21 @@
 <script>
 import { defineComponent, ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue';
+import ErrorModal from "components/ErrorModal.vue";
 export default defineComponent({
   name: 'MainLayout',
 
   components: {
     EssentialLink,
+    ErrorModal
   },
 
   data() {
     return {
       errorMessage: ""
     };
+  },
+  methods: {
   },
   setup () {
     const leftDrawerOpen = ref(false)

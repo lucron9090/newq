@@ -1,49 +1,54 @@
 <template>
-  <q-stepper v-model="step" @finish="handleFormSubmission">
-    <q-step
-      v-for="(step, index) in steps"
-      :key="index"
-      :name="step.name"
-      :label="step.name"
-      :title="step.name"
-      :done="step.done"
-    >
-      <div v-for="(field, i) in step.fields" :key="i">
-        <q-input
-          :type="mapFieldType(field.type)"
-          :label="field.input_label"
-          :placeholder="field.input_placeholder"
-          :name="field.input_name"
-          :rules="[val => !!val || 'Field is required']"
-          v-model="field.value"
-        />
-      </div>
-      <q-btn
-      label="Back"
-      color="secondary"
-      @click="previousStep"
-      :disabled="step === steps[0].name"
-    />
-    <q-btn
-      :label="step === steps[steps.length - 1].name ? 'Generate' : 'Next'"
-      color="primary"
-      @click="step === steps[steps.length - 1].name ? formSubmissionHandler() : nextStep()"
-    />
+   <div>
+    <q-spinner v-if="isLoading" color="primary" size="40px" />
 
-    </q-step>
+    <q-stepper v-model="step" @finish="handleFormSubmission">
+
+      <q-step
+        v-for="(step, index) in steps"
+        :key="index"
+        :name="step.name"
+        :label="step.name"
+        :title="step.name"
+        :done="step.done"
+      >
+        <div v-for="(field, i) in step.fields" :key="i">
+          <q-input
+            :type="mapFieldType(field.type)"
+            :label="field.input_label"
+            :placeholder="field.input_placeholder"
+            :name="field.input_name"
+            v-model="field.value"
+          />
+          <!--:rules="[val => !!val || 'Field is required']"-->
+        </div>
+        <q-btn
+          label="Back"
+          color="secondary"
+          @click="previousStep"
+          :disabled="step === steps[0].name"
+        />
+        <q-btn
+          :label="step === steps[steps.length - 1].name ? 'Generate' : 'Next'"
+          color="primary"
+          @click="step === steps[steps.length - 1].name ? formSubmissionHandler() : nextStep()"
+        />
+      </q-step>
+    </q-stepper>
     <q-stepper-navigation>
-      <q-btn
-        label="Submit"
-        type="submit"
-        color="primary"
-        @click="handleFormSubmission"
-      />
-    </q-stepper-navigation>
-  </q-stepper>
+        <q-btn
+          label="Submit"
+          type="submit"
+          color="primary"
+          @click="formSubmissionHandler()"
+        />
+      </q-stepper-navigation>
+  </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
+import { bus } from './Event-Bus'
 
 export default defineComponent({
   name: 'DynamicForm',
@@ -52,12 +57,16 @@ export default defineComponent({
       steps: [],
       step: null,
       isLoading: false,
+      isGenerating: false,
       error: null,
       isCurrentStepValid: false,
     }
   },
-  mounted() {
-    this.fetchFormData()
+  created() {
+    bus.on('slugSelected', this.handleSlugSelected)
+  },
+  destroyed() {
+    bus.off('slugSelected', this.handleSlugSelected)
   },
   methods: {
     nextStep() {
@@ -72,26 +81,51 @@ export default defineComponent({
         this.step = this.steps[currentIndex - 1].name
       }
     },
-    formSubmissionHandler() {
-      // Implement your form submission logic here
-    },
-    async fetchFormData() {
-      this.isLoading = true
+    async formSubmissionHandler() {
+
+      this.isGenerating = true
       try {
-        const response = await fetch('http://localhost:9000/api/integration/generator-full-information/dl_texas/')
-        const { steps } = await response.json()
-        this.steps = steps.map(step => ({ ...step, done: false }))
-        this.step = this.steps[0].name
+        const response = await fetch('http://localhost:9000/api/integration/generate/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(this.steps),
+        })
+        const data = await response.json()
+        if (data) {
+          console.log(data)
+        } else {
+          console.error('No data received from API')
+        }
       } catch (error) {
-        console.error('Error fetching form data:', error)
+        this.error = error
+      } finally {
+        this.isGenerating = false
+      }
+    },
+    async handleSlugSelected(slug) {
+      if(!slug) return;
+      this.isLoading = true
+      this.steps = [];
+      try {
+        const response = await fetch(`http://localhost:9000/api/integration/generator-full-information/${slug}/`)
+        const { steps } = await response.json()
+        if (steps) {
+          {
+            this.steps = steps.map(step => ({ ...step, done: false }))
+            this.step = this.steps[0].name
+          }
+        } else {
+          console.error('No data received from API')
+        }
+      } catch (error) {
         this.error = error
       } finally {
         this.isLoading = false
       }
     },
-    handleFormSubmission() {
-      // Add form submission logic here
-    },
+
     mapFieldType(type) {
       const fieldTypeMap = {
         string: 'text',
