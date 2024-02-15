@@ -1,13 +1,13 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-page-container>
-      <div class="q-pa-md justify-center content-contain">
+    <q-page-container class="row wrap justify-center items-center content-center">
+      <div class="q-pa-md justify-center content-container">
 
-        <div class="row justify-center">
-          <div class="col">
+        <div class="row">
+          <div class="col-shrink q-pa-md">
             <EssentialLink />
           </div>
-          <div class="col">
+          <div class="col q-pa-md">
             <router-view />
           </div>
         </div>
@@ -19,8 +19,8 @@
 <style>
 .content-container {
   max-width: 1440px;
-  align-self: start;
-  width: 100%;
+  align-content:flex-start;
+  width: 70%;
 }
 </style>
 
