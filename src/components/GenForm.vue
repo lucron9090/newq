@@ -1,9 +1,9 @@
 <template>
-   <div>
+  <q-responsive :ratio="16/9" class="col">
+   <div >
     <q-spinner v-if="isLoading" color="primary" size="40px" />
 
     <q-stepper v-model="step" @finish="handleFormSubmission">
-
       <q-step
         v-for="(step, index) in steps"
         :key="index"
@@ -22,6 +22,7 @@
           />
           <!--:rules="[val => !!val || 'Field is required']"-->
         </div>
+        <q-stepper-navigation>
         <q-btn
           label="Back"
           color="secondary"
@@ -33,17 +34,13 @@
           color="primary"
           @click="step === steps[steps.length - 1].name ? formSubmissionHandler() : nextStep()"
         />
+      </q-stepper-navigation>
       </q-step>
     </q-stepper>
-    <q-stepper-navigation>
-        <q-btn
-          label="Submit"
-          type="submit"
-          color="primary"
-          @click="formSubmissionHandler()"
-        />
-      </q-stepper-navigation>
+
+
   </div>
+</q-responsive>
 </template>
 
 <script>

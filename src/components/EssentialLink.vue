@@ -2,7 +2,7 @@
   <!-- Container for the component with a specific style -->
   <div class="q-pa-md" style="max-width: 350px">
     <!-- List component with borders and rounded corners -->
-    <q-list bordered class="rounded-borders">
+    <q-list>>
       <!-- Show the spinner if isLoading is true -->
       <q-linear-progress v-if="isLoading" dark query color="cyan" class="q-mt-sm" />
       <!-- Show the content if isLoading is false -->
