@@ -1,10 +1,10 @@
 <template>
   <!-- Container for the component with a specific style -->
-  <div class="q-pa-md" style="width: 250px">
+  <div style="width: 250px">
     <!-- List component with borders and rounded corners -->
     <q-list style="width: 250px">
       <!-- Show the spinner if isLoading is true -->
-      <q-linear-progress v-if="isLoading" dark query color="cyan" class="q-mt-sm" />
+      <q-linear-progress v-if="isLoading" dark query color="cyan" />
       <!-- Show the content if isLoading is false -->
       <q-item v-else v-for="(item, index) in menuData" :key="index" style="width: 250px"> <!-- id="`list-${id}`"> -->
         <!-- Expansion item with a specific label and model -->

@@ -1,21 +1,29 @@
-
 <template>
-  <q-layout view="hHh Lpr fFf">
-  <div class="q-pa-md example-row-stacked-to-horizontal">
+  <q-layout view="hHh lpR fFf">
+    <q-page-container>
+      <div class="q-pa-md justify-center content-contain">
 
-    <div class="row">
-      <div class="col-12 col-md-4"><EssentialLink /></div>
-      <div class="col-12 col-md-8"><q-page-container><router-view /></q-page-container></div>
-    </div>
-  </div>
+        <div class="row justify-center">
+          <div class="col">
+            <EssentialLink />
+          </div>
+          <div class="col">
+            <router-view />
+          </div>
+        </div>
+      </div>
+    </q-page-container>
   </q-layout>
 </template>
-<style lang="sass">
-.example-row-stacked-to-horizontal
-  .row > div
-  .row + .row
-    margin-top: 1rem
+
+<style>
+.content-container {
+  max-width: 1440px;
+  align-self: start;
+  width: 100%;
+}
 </style>
+
 <script>
 import { defineComponent, ref } from 'vue'
 import EssentialLink from 'components/EssentialLink.vue';
