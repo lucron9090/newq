@@ -1,9 +1,8 @@
 <template>
-  <q-page class="row justify-center">
+  <q-page>
     <GenForm  />
   </q-page>
 </template>
-
 <script lang="ts">
 import { Todo, Meta } from 'components/models';
 import ExampleComponent from 'components/ExampleComponent.vue';
