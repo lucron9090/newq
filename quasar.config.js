@@ -61,6 +61,7 @@ module.exports = configure(function (/* ctx */) {
 
             //... existing config
           },
+          'Dialog',
         ],
       ],
       target: {
@@ -128,12 +129,12 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: []
+      plugins: [ 'Dialog' ],
     },
 
     // animations: 'all', // --- includes all animations
     // https://v2.quasar.dev/options/animations
-    animations: [],
+    animations: [''],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#sourcefiles
     // sourceFiles: {
@@ -226,9 +227,15 @@ module.exports = configure(function (/* ctx */) {
       contentScripts: [
         'my-content-script'
       ],
+      loaderOptions: {
+        scss: {
+          additionalData: `@import "~@quasar/app/src/css/quasar.variables.scss";`
+        }
+      }
 
       // extendBexScriptsConf (esbuildConf) {}
       // extendBexManifestJson (json) {}
     }
+
   }
 });

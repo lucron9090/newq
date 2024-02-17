@@ -34,11 +34,7 @@ export default defineComponent({
     EssentialLink,
   },
 
-  data() {
-    return {
-      errorMessage: ""
-    };
-  },
+
   setup() {
     const leftDrawerOpen = ref(false)
     const rightDrawerOpen = ref(false)
