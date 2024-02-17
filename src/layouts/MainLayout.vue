@@ -5,7 +5,7 @@
 
         <div class="row">
           <div class="col-shrink q-pa-md">
-            <EssentialLink />
+            <MainMenu />
           </div>
           <div class="col q-pa-md">
             <router-view />
@@ -26,12 +26,12 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue';
+import MainMenu from 'components/MainMenu.vue';
 export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    EssentialLink,
+    MainMenu,
   },
 
 

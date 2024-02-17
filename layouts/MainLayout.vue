@@ -15,7 +15,6 @@
           Quasar App
         </q-toolbar-title>
 
-        <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
     </q-header>
 
@@ -31,7 +30,7 @@
           Essential Links
         </q-item-label>
 
-        <EssentialLink />
+        <MainMenu />
       </q-list>
     </q-drawer>
 
@@ -43,13 +42,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import EssentialLink from 'components/EssentialLink.vue';
+import MainMenu from 'components/MainMenu.vue';
 
 export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    EssentialLink
+    MainMenu
   },
 
   setup () {

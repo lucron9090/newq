@@ -32,7 +32,7 @@
           Essential Links
         </q-item-label>
 
-        <EssentialLink />
+        <MainMenu />
       </q-list>
     </q-drawer>
 
@@ -61,13 +61,13 @@
 
 <script>
 import { defineComponent, ref } from 'vue'
-import EssentialLink from 'components/EssentialLink.vue';
+import MainMenu from 'components/MainMenu.vue';
 import ErrorModal from "components/ErrorModal.vue";
 export default defineComponent({
   name: 'MainLayout',
 
   components: {
-    EssentialLink,
+    MainMenu,
     ErrorModal
   },
 
