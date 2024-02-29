@@ -1,7 +1,0 @@
-{
-  "editor.bracketPairColorization.enabled": true,
-  "editor.guides.bracketPairs": true,
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "bitoAI.codeCompletion.enableAutoCompletion": true,
-  "bitoAI.codeCompletion.enableCommentToCode": true
-}

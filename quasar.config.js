@@ -103,7 +103,7 @@ module.exports = configure(function (/* ctx */) {
       proxy: {
         // proxy all requests starting with /api to jsonplaceholder
         '/api': {
-          target: 'https://api.verifblog.com', //'https://old.verif.tools',
+          target: 'https://old.verif.tools/', //'https://old.verif.tools',
           changeOrigin: true,
           pathRewrite: {
             '^/api': ''

@@ -26,7 +26,8 @@
     <q-list style="width: 250px">
       <!-- Include GenForm.vue with event handler -->
       <!-- Show the spinner if isLoading is true -->
-      <q-linear-progress v-if="isLoading" dark query color="cyan" />
+      <q-linear-progress v-if="searchTerm" dark query color="cyan" />
+      <q-linear-progress v-else-if="isLoading" dark query color="cyan" />
       <!-- Show the content if isLoading is false -->
       <q-item v-else v-for="(item, index) in menuData" :key="index" style="width: 250px"> <!-- id="`list-${id}`"> -->
         <!-- Expansion item with a specific label and model -->
@@ -42,7 +43,7 @@
                       <q-avatar size="16px">
                         <img :src="'https://oldie.veriftools.ru/media/' + generator.icon">
                       </q-avatar>
-                      <q-btn flat :style="{ color: generatorIndex % 2 === 0 ? 'primary' : 'secondary' }" @click="handleSlugSelection(generator)">
+                      <q-btn flat :style="{ color: generatorIndex % 2 === 0 ? 'primary' : '' }" @click="handleSlugSelection(generator)">
                         {{ truncateTitle(generator.name) }}
                       </q-btn>
                     </q-card>
@@ -56,7 +57,7 @@
                 <q-avatar size="16px">
                   <img :src="'https://oldie.veriftools.ru/media/' + igenerator.icon">
                 </q-avatar>
-                <q-btn flat :style="{ color: igeneratorIndex % 2 === 0 ? 'primary' : 'secondary' }" @click="handleSlugSelection(igenerator)">
+                <q-btn flat :style="{ color: igeneratorIndex % 2 === 0 ? 'primary' : '' }" @click="handleSlugSelection(igenerator)">
                   {{ truncateTitle(igenerator.name) }}
                 </q-btn>
               </q-card>
